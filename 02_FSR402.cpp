@@ -3,7 +3,7 @@
 void FSR402::begin() {
     pinMode(Sensor_1, INPUT);
     pinMode(Sensor_2, INPUT);
-    vTaskDelay(pdMS_TO_TICKS(1000));
+    vTaskDelay(pdMS_TO_TICKS(100));
 
     if (this->MA1_width > this->MA2_width) {
         for (int i = 0; i < this->MA1_width; i++) {

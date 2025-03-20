@@ -2,29 +2,29 @@
 
 Motor _motor;
 FSR402 _sensor;
+CamBienDong _myINA;
 
 //Biến toàn cục
 volatile int sensor_value1 = 0;
 volatile int sensor_value2 = 0;
+volatile int setpoint = 0;
 
 //Tao task cho sensor
 void SensorTask(void *pvParameters) {
   while (1) {
     _sensor.readSensor();
-    sensor_value1 = _sensor.sensorValue1;
-
-    Serial.print("Sensor 1: ");
-    Serial.println(sensor_value1);
-
+    setpoint = _sensor.MA2_output_Sensor2 - _sensor.MA1_output_Sensor2;
+    Serial.println(setpoint);
     vTaskDelay(pdMS_TO_TICKS(100));  // Đọc cảm biến sau mỗi 100ms
   }
 }
 
+// Tạo task cho Motor
 void MotorTask(void *pvParameters) {
   while (1) {
-    if (sensor_value1 < 300) {
+    if (setpoint > 1500) {
       _motor.DieuKhien(45, _QuayThuan);
-    } else if (sensor_value1 > 600) {
+    } else if (setpoint < -1000) {
       _motor.DieuKhien(80, _QuayNghich);
     }
     // _motor.DieuKhien(30, _QuayNghich);

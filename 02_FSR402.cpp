@@ -7,8 +7,8 @@ void FSR402::begin() {
 
     if (this->MA1_width > this->MA2_width) {
         for (int i = 0; i < this->MA1_width; i++) {
-            sensorValue1 = 1023 - analogRead(Sensor_1);
-            sensorValue2 = 1023 - analogRead(Sensor_2);
+            sensorValue1 = 4095 - analogRead(Sensor_1);
+            sensorValue2 = 4095 - analogRead(Sensor_2);
             MA1_Value_Sensor1[i] = MA1_Value_Sensor1[i] + sensorValue1;
             MA1_Value_Sensor2[i] = MA1_Value_Sensor2[i] + sensorValue2;
             if (i < this->MA2_width) {
@@ -19,8 +19,8 @@ void FSR402::begin() {
     }
     else if (this->MA1_width < this->MA2_width) {
         for (int i = 0; i < this->MA2_width; i++) {
-            sensorValue1 = 1023 - analogRead(Sensor_1);
-            sensorValue2 = 1023 - analogRead(Sensor_2);
+            sensorValue1 = 4095 - analogRead(Sensor_1);
+            sensorValue2 = 4095 - analogRead(Sensor_2);
             MA2_Value_Sensor1[i] = MA2_Value_Sensor1[i] + sensorValue1;
             MA2_Value_Sensor2[i] = MA2_Value_Sensor2[i] + sensorValue2;
             if (i < this->MA1_width) {
